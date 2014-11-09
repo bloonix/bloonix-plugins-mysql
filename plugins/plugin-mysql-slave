@@ -1,0 +1,11 @@
+plugin {
+    id 43
+    plugin MySQL.SlaveStatus
+    command check-mysql-slave
+    datatype none
+    category Database,MySQL
+    netaccess yes
+    prefer localhost
+    abstract MySQL replication check
+    description Check the status of a master-slave replication.
+}

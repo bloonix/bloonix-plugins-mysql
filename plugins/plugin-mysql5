@@ -1,0 +1,1304 @@
+plugin {
+    id 42
+    plugin MySQL5.Status
+    command check-mysql5
+    datatype statistic
+    category Database,MySQL
+    netaccess yes
+    prefer localhost
+    abstract MySQL check
+    description MySQL innodb and myisam statistics.
+}
+
+statistic {
+    statkey aborted_clients
+    alias Aborted clients
+    datatype float
+    description See MySQL documentation, statistic variable Aborted_clients.
+}
+
+statistic {
+    statkey aborted_connects
+    alias Aborted connects
+    datatype float
+    description See MySQL documentation, statistic variable Aborted_connects.
+}
+
+statistic {
+    statkey bytes_received
+    alias Bytes received
+    datatype float
+    units bytes
+    description See MySQL documentation, statistic variable Bytes_received.
+}
+
+statistic {
+    statkey bytes_sent
+    alias Bytes sent
+    datatype float
+    units bytes
+    description See MySQL documentation, statistic variable Bytes_sent.
+}
+
+statistic {
+    statkey com_alter_table
+    alias Alter
+    datatype float
+    description See MySQL documentation, statistic variable Com_alter_table.
+}
+
+statistic {
+    statkey com_delete
+    alias Delete
+    datatype float
+    description See MySQL documentation, statistic variable Com_delete.
+}
+
+statistic {
+    statkey com_drop_table
+    alias Drop
+    datatype float
+    description See MySQL documentation, statistic variable Com_drop_table.
+}
+
+statistic {
+    statkey com_insert
+    alias Insert
+    datatype float
+    description See MySQL documentation, statistic variable Com_insert.
+}
+
+statistic {
+    statkey com_lock_tables
+    alias Lock
+    datatype float
+    description See MySQL documentation, statistic variable Com_lock_tables.
+}
+
+statistic {
+    statkey com_select
+    alias Select
+    datatype float
+    description See MySQL documentation, statistic variable Com_select.
+}
+
+statistic {
+    statkey com_truncate
+    alias Truncate
+    datatype float
+    description See MySQL documentation, statistic variable Com_truncate.
+}
+
+statistic {
+    statkey com_unlock_tables
+    alias Unlock
+    datatype float
+    description See MySQL documentation, statistic variable Com_unlock_tables.
+}
+
+statistic {
+    statkey com_update
+    alias Update
+    datatype float
+    description See MySQL documentation, statistic variable Com_update.
+}
+
+statistic {
+    statkey connections
+    alias Connections
+    datatype float
+    description See MySQL documentation, statistic variable Connections.
+}
+
+statistic {
+    statkey ctmp_disk_table
+    alias TMP disk tables created
+    datatype float
+    description See MySQL documentation, statistic variable Created_tmp_disk_tables.
+}
+
+statistic {
+    statkey ctmp_tmp_files
+    alias TMP files created
+    datatype float
+    description See MySQL documentation, statistic variable Created_tmp_files.
+}
+
+statistic {
+    statkey ctmp_tmp_tables
+    datatype float
+    description See MySQL documentation, statistic variable Created_tmp_tables.
+}
+
+statistic {
+    statkey delayed_errors
+    alias Delayed errors
+    datatype float
+    description See MySQL documentation, statistic variable Delayed_errors.
+}
+
+statistic {
+    statkey delayed_insert_thrd
+    alias Delayed inserts
+    datatype bigint
+    description See MySQL documentation, statistic variable Delayed_insert_threads.
+}
+
+statistic {
+    statkey delayed_writes
+    alias Delayed writes
+    datatype float
+    description See MySQL documentation, statistic variable Delayed_writes.
+}
+
+statistic {
+    statkey ibbufpool_pg_data
+    alias Pages data
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_pages_data.
+}
+
+statistic {
+    statkey ibbufpool_pg_dirty
+    alias Pages dirty
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_pages_dirty.
+}
+
+statistic {
+    statkey ibbufpool_pg_flush
+    alias Page flushes
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_pages_flushed.
+}
+
+statistic {
+    statkey ibbufpool_pg_free
+    alias Free pages
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_pages_free.
+}
+
+statistic {
+    statkey ibbufpool_pg_total
+    alias Total pages
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_pages_total.
+}
+
+statistic {
+    statkey ibbufpool_rah_rnd
+    alias Random read aheads
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_read_ahead_rnd.
+}
+
+statistic {
+    statkey ibbufpool_rah_seq
+    alias Sequential read aheads
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_read_ahead_seq.
+}
+
+statistic {
+    statkey ibbufpool_read_req
+    alias Read requests
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_read_requests.
+}
+
+statistic {
+    statkey ibbufpool_reads
+    alias Reads
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_reads.
+}
+
+statistic {
+    statkey ibbufpool_wait_free
+    alias Wait free
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_wait_free.
+}
+
+statistic {
+    statkey ibbufpool_write_req
+    alias Write requests
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_buffer_pool_write_requests.
+}
+
+statistic {
+    statkey ibdata_fsyncs
+    alias Fsyncs
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_data_fsyncs.
+}
+
+statistic {
+    statkey ibdata_pend_fsyncs
+    alias Pending fsyncs
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_data_pending_fsyncs.
+}
+
+statistic {
+    statkey ibdata_pend_reads
+    alias Pending reads
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_data_pending_reads.
+}
+
+statistic {
+    statkey ibdata_pend_writes
+    alias Pending writes
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_data_pending_writes.
+}
+
+statistic {
+    statkey ibdata_read
+    alias Data read
+    datatype float
+    units bytes
+    description See MySQL documentation, statistic variable Innodb_data_read.
+}
+
+statistic {
+    statkey ibdata_reads
+    alias Data reads
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_data_reads.
+}
+
+statistic {
+    statkey ibdata_writes
+    alias Data writes
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_data_writes.
+}
+
+statistic {
+    statkey ibdata_written
+    alias Data written
+    datatype float
+    units bytes
+    description See MySQL documentation, statistic variable Innodb_data_written.
+}
+
+statistic {
+    statkey ibdata_pg_read
+    alias Page read
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_pages_read.
+}
+
+statistic {
+    statkey ibdata_pg_written
+    alias Pages written
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_pages_written.
+}
+
+statistic {
+    statkey ibrow_lock_cur_wait
+    alias Current row locks
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_row_lock_current_waits.
+}
+
+statistic {
+    statkey ibrow_lock_time
+    alias Row lock time
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_row_lock_time.
+}
+
+statistic {
+    statkey ibrow_lock_time_avg
+    alias Row lock average time
+    datatype bigint
+    description See MySQL documentation, statistic variable Innodb_row_lock_time_avg.
+}
+
+statistic {
+    statkey ibrow_lock_waits
+    alias Row lock waits
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_row_lock_waits.
+}
+
+statistic {
+    statkey ibrows_deleted
+    alias Rows deleted
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_rows_deleted.
+}
+
+statistic {
+    statkey ibrows_inserted
+    alias Rows inserted
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_rows_inserted.
+}
+
+statistic {
+    statkey ibrows_read
+    alias Rows read
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_rows_read.
+}
+
+statistic {
+    statkey ibrows_updated
+    alias Rows updated
+    datatype float
+    description See MySQL documentation, statistic variable Innodb_rows_updated.
+}
+
+statistic {
+    statkey key_blocks_unused
+    alias Blocks unused
+    datatype bigint
+    description See MySQL documentation, statistic variable Key_blocks_unused.
+}
+
+statistic {
+    statkey key_blocks_used
+    alias Blocks used
+    datatype bigint
+    description See MySQL documentation, statistic variable Key_blocks_used.
+}
+
+statistic {
+    statkey key_read_requests
+    alias Read requests
+    datatype float
+    description See MySQL documentation, statistic variable Key_read_requests.
+}
+
+statistic {
+    statkey key_reads
+    alias Reads
+    datatype float
+    description See MySQL documentation, statistic variable Key_reads.
+}
+
+statistic {
+    statkey key_write_requests
+    alias Write requests
+    datatype float
+    description See MySQL documentation, statistic variable Key_write_requests.
+}
+
+statistic {
+    statkey key_writes
+    alias Writes
+    datatype float
+    description See MySQL documentation, statistic variable Key_writes.
+}
+
+statistic {
+    statkey max_used_conn
+    alias Max used connections
+    datatype bigint
+    description See MySQL documentation, statistic variable Max_used_connections.
+}
+
+statistic {
+    statkey open_tables
+    alias Open tables
+    datatype bigint
+    description See MySQL documentation, statistic variable Open_tables.
+}
+
+statistic {
+    statkey opened_tables
+    alias Opened tables
+    datatype float
+    description See MySQL documentation, statistic variable Opened_tables.
+}
+
+statistic {
+    statkey qc_free_blocks
+    alias Free blocks
+    datatype bigint
+    description See MySQL documentation, statistic variable Qcache_free_blocks.
+}
+
+statistic {
+    statkey qc_free_memory
+    alias Free memory
+    datatype bigint
+    units bytes
+    description See MySQL documentation, statistic variable Qcache_free_memory.
+}
+
+statistic {
+    statkey qc_hits
+    alias Hits
+    datatype float
+    description See MySQL documentation, statistic variable Qcache_hits.
+}
+
+statistic {
+    statkey qc_inserts
+    alias Inserts
+    datatype float
+    description See MySQL documentation, statistic variable Qcache_inserts.
+}
+
+statistic {
+    statkey qc_lowmem_prunes
+    alias Low memory prunes
+    datatype float
+    description See MySQL documentation, statistic variable Qcache_lowmem_prunes.
+}
+
+statistic {
+    statkey qc_not_cached
+    alias Not cached
+    datatype float
+    description See MySQL documentation, statistic variable Qcache_not_cached.
+}
+
+statistic {
+    statkey qc_queries_in_cache
+    alias Queries in cache
+    datatype bigint
+    description See MySQL documentation, statistic variable Qcache_queries_in_cache.
+}
+
+statistic {
+    statkey qc_total_blocks
+    alias Total blocks
+    datatype bigint
+    description See MySQL documentation, statistic variable Qcache_total_blocks.
+}
+
+statistic {
+    statkey questions
+    alias Questions
+    datatype float
+    description See MySQL documentation, statistic variable Questions.
+}
+
+statistic {
+    statkey sel_full_join
+    alias Full join
+    datatype float
+    description See MySQL documentation, statistic variable Select_full_join.
+}
+
+statistic {
+    statkey sel_full_range_join
+    alias Full range join
+    datatype float
+    description See MySQL documentation, statistic variable Select_full_range_join.
+}
+
+statistic {
+    statkey sel_range
+    alias Range
+    datatype float
+    description See MySQL documentation, statistic variable Select_range.
+}
+
+statistic {
+    statkey sel_range_check
+    alias Range check
+    datatype float
+    description See MySQL documentation, statistic variable Select_range_check.
+}
+
+statistic {
+    statkey sel_scan
+    alias Scans
+    datatype float
+    description See MySQL documentation, statistic variable Select_scan.
+}
+
+statistic {
+    statkey slow_queries
+    alias Slow queries
+    datatype float
+    description See MySQL documentation, statistic variable Slow_queries.
+}
+
+statistic {
+    statkey sort_merge_passes
+    alias Merge passes
+    datatype float
+    description See MySQL documentation, statistic variable Sort_merge_passes.
+}
+
+statistic {
+    statkey sort_range
+    alias Range sorts
+    datatype float
+    description See MySQL documentation, statistic variable Sort_range.
+}
+
+statistic {
+    statkey sort_rows
+    alias Rows sorted
+    datatype float
+    description See MySQL documentation, statistic variable Sort_rows.
+}
+
+statistic {
+    statkey sort_scan
+    alias Rows scanned
+    datatype float
+    description See MySQL documentation, statistic variable Sort_scan.
+}
+
+statistic {
+    statkey tab_locks_immediate
+    alias Immediate locks
+    datatype float
+    description See MySQL documentation, statistic variable Table_locks_immediate.
+}
+
+statistic {
+    statkey tab_locks_waited
+    alias Locks waited
+    datatype float
+    description See MySQL documentation, statistic variable Table_locks_waited.
+}
+
+statistic {
+    statkey threads_cached
+    alias Cached
+    datatype bigint
+    description See MySQL documentation, statistic variable Threads_cached.
+}
+
+statistic {
+    statkey threads_connected
+    alias Connected
+    datatype bigint
+    description See MySQL documentation, statistic variable Threads_connected.
+}
+
+statistic {
+    statkey threads_created
+    alias Created
+    datatype float
+    description See MySQL documentation, statistic variable Threads_created.
+}
+
+statistic {
+    statkey threads_running
+    alias Running
+    datatype bigint
+    description See MySQL documentation, statistic variable Threads_running.
+}
+
+chart {
+    id 1
+    title MySQL - Aborted clients / connects
+    options {
+        ylabel aborts/s
+        units null
+        chart-type area
+        series {
+            name aborted_clients
+            color \#ff7a0d
+        }
+        series {
+            name aborted_connects
+            color \#005467
+            opposite true
+        }
+    }
+}
+
+chart {
+    id 2
+    title MySQL - Bytes received / sent
+    options {
+        units bytes
+        ylabel bytes/s
+        chart-type area
+        series {
+            name bytes_sent
+            color \#005467
+        }
+        series {
+            name bytes_received
+            color \#ff7a0d
+            opposite true
+        }
+    }
+}
+
+chart {
+    id 3
+    title MySQL - Table commands
+    options {
+        ylabel commands/s
+        units null
+        chart-type area
+        series {
+            name com_alter_table
+            color \#ffb244
+        }
+        series {
+            name com_drop_table
+            color \#9a72ad
+        }
+        series {
+            name com_lock_tables
+            color \#e9644a
+        }
+        series {
+            name com_unlock_tables
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 4
+    title MySQL - Commands
+    options {
+        ylabel commands/s
+        units null
+        chart-type area
+        series {
+            name com_select
+            color \#ffb244
+        }
+        series {
+            name com_insert
+            color \#9a72ad
+        }
+        series {
+            name com_update
+            color \#e9644a
+        }
+        series {
+            name com_delete
+            color \#005467
+        }
+        series {
+            name com_truncate
+            color \#2ba743
+        }
+    }
+}
+
+chart {
+    id 5
+    title MySQL - Connections
+    options {
+        ylabel connections/s
+        units null
+        chart-type area
+        series {
+            name connections
+            color \#ff7a0d
+        }
+    }
+}
+
+chart {
+    id 6
+    title MySQL - Created tmp tables / files
+    options {
+        ylabel created/s
+        units null
+        chart-type area
+        series {
+            name ctmp_disk_table
+            color \#ffb244
+        }
+        series {
+            name ctmp_tmp_files
+            color \#9a72ad
+        }
+        series {
+            name ctmp_tmp_tables
+            color \#e9644a
+        }
+    }
+}
+
+chart {
+    id 7
+    title MySQL - Delayed errors / writes
+    options {
+        ylabel delays/s
+        units null
+        chart-type area
+        series {
+            name delayed_errors
+            color \#ff7a0d
+        }
+        series {
+            name delayed_writes
+            color \#005467
+            opposite true
+        }
+    }
+}
+
+chart {
+    id 8
+    title MySQL - Delayed insert threads
+    options {
+        ylabel delays
+        units null
+        chart-type area
+        series {
+            name delayed_insert_thrd
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 9
+    title MySQL - Innodb buffer pool pages
+    options {
+        ylabel pages
+        units default
+        chart-type area
+        series {
+            name ibbufpool_pg_data
+            color \#ffb244
+        }
+        series {
+            name ibbufpool_pg_dirty
+            color \#9a72ad
+        }
+        series {
+            name ibbufpool_pg_flush
+            color \#e9644a
+        }
+        series {
+            name ibbufpool_pg_total
+            color \#005467
+        }
+        series {
+            name ibbufpool_pg_free
+            color \#2ba743
+        }
+    }
+}
+
+chart {
+    id 10
+    title MySQL - Innodb buffer pool read ahead rnd / seq
+    options {
+        ylabel read/s
+        units default
+        chart-type area
+        series {
+            name ibbufpool_rah_rnd
+            color \#ff7a0d
+        }
+        series {
+            name ibbufpool_rah_seq
+            color \#005467
+            opposite true
+        }
+    }
+}
+
+chart {
+    id 11
+    title MySQL - Innodb buffer pool
+    options {
+        ylabel count/s
+        units bytes
+        chart-type area
+        series {
+            name ibbufpool_read_req
+            color \#ffb244
+        }
+        series {
+            name ibbufpool_reads
+            color \#9a72ad
+        }
+        series {
+            name ibbufpool_wait_free
+            color \#e9644a
+        }
+        series {
+            name ibbufpool_write_req
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 12
+    title MySQL - Innodb data fsyncs
+    options {
+        ylabel fsyncs/s
+        units default
+        chart-type area
+        series {
+            name ibdata_fsyncs
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 13
+    title MySQL - Innodb data pendings
+    options {
+        ylabel count
+        units default
+        chart-type area
+        series {
+            name ibdata_pend_fsyncs
+            color \#ffb244
+        }
+        series {
+            name ibdata_pend_reads
+            color \#9a72ad
+        }
+        series {
+            name ibdata_pend_writes
+            color \#e9644a
+        }
+    }
+}
+
+chart {
+    id 14
+    title MySQL - Innodb data read / written
+    options {
+        ylabel bytes/s
+        units bytes
+        chart-type area
+        series {
+            name ibdata_read
+            color \#ff7a0d
+        }
+        series {
+            name ibdata_written
+            color \#005467
+            opposite true
+        }
+    }
+}
+
+chart {
+    id 15
+    title MySQL - Innodb data reads / writes
+    options {
+        ylabel count/s
+        units default
+        chart-type area
+        series {
+            name ibdata_reads
+            color \#ff7a0d
+        }
+        series {
+            name ibdata_writes
+            color \#005467
+            opposite true
+        }
+    }
+}
+
+chart {
+    id 16
+    title MySQL - Innodb pages read / written
+    options {
+        ylabel pages/s
+        units default
+        chart-type area
+        series {
+            name ibdata_pg_read
+            color \#ff7a0d
+        }
+        series {
+            name ibdata_pg_written
+            color \#005467
+            opposite true
+        }
+    }
+}
+
+chart {
+    id 17
+    title MySQL - Innodb row lock current waits
+    options {
+        ylabel lock waits
+        units default
+        chart-type area
+        series {
+            name ibrow_lock_cur_wait
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 18
+    title MySQL - Innodb row lock time
+    options {
+        ylabel wasted time in milliseconds
+        units default
+        chart-type area
+        series {
+            name ibrow_lock_time
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 19
+    title MySQL - Innodb row lock time avg
+    options {
+        ylabel average in milliseconds
+        units null
+        chart-type area
+        series {
+            name ibrow_lock_time_avg
+            color \#ff7a0d
+        }
+    }
+}
+
+chart {
+    id 20
+    title MySQL - Innodb row lock waits
+    options {
+        ylabel waits/s
+        units null
+        chart-type area
+        series {
+            name ibrow_lock_waits
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 21
+    title MySQL - Innodb rows
+    options {
+        ylabel rows/s
+        units null
+        chart-type line
+        series {
+            name ibrows_deleted
+            color \#ffb244
+        }
+        series {
+            name ibrows_inserted
+            color \#9a72ad
+        }
+        series {
+            name ibrows_updated
+            color \#e9644a
+        }
+        series {
+            name ibrows_read
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 22
+    title MySQL - Key blocks unused / used
+    options {
+        ylabel blocks
+        units default
+        chart-type area
+        series {
+            name key_blocks_used
+            color \#005467
+        }
+        series {
+            name key_blocks_unused
+            color \#ff7a0d
+        }
+    }
+}
+
+chart {
+    id 23
+    title MySQL - Key read / write requests
+    options {
+        ylabel requests/s
+        units default
+        chart-type area
+        series {
+            name key_write_requests
+            color \#ff7a0d
+        }
+        series {
+            name key_read_requests
+            color \#005467
+            opposite true
+        }
+    }
+}
+
+chart {
+    id 24
+    title MySQL - Key reads / writes
+    options {
+        ylabel count/s
+        units default
+        chart-type area
+        series {
+            name key_reads
+            color \#ff7a0d
+        }
+        series {
+            name key_writes
+            opposite true
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 25
+    title MySQL - Max used connections
+    options {
+        ylabel connections
+        units null
+        chart-type area
+        series {
+            name max_used_conn
+            color \#ff7a0d
+        }
+    }
+}
+
+chart {
+    id 26
+    title MySQL - Open tables
+    options {
+        ylabel count
+        units null
+        chart-type area
+        series {
+            name open_tables
+            color \#ff7a0d
+        }
+    }
+}
+
+chart {
+    id 27
+    title MySQL - Opened tables
+    options {
+        ylabel opened/s
+        units null
+        chart-type area
+        series {
+            name opened_tables
+            color \#ff7a0d
+        }
+    }
+}
+
+chart {
+    id 28
+    title MySQL - Qcache blocks
+    options {
+        ylabel blocks
+        units default
+        chart-type area
+        series {
+            name qc_free_blocks
+            color \#ff7a0d
+        }
+    }
+}
+
+chart {
+    id 29
+    title MySQL - Qcache free memory
+    options {
+        ylabel bytes
+        units bytes
+        chart-type area
+        series {
+            name qc_free_memory
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 30
+    title MySQL - Qcache hits
+    options {
+        ylabel count/s
+        units default
+        chart-type line
+        series {
+            name qc_hits
+            color \#ffb244
+        }
+        series {
+            name qc_inserts
+            color \#9a72ad
+        }
+        series {
+            name qc_lowmem_prunes
+            color \#e9644a
+        }
+        series {
+            name qc_not_cached
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 31
+    title MySQL - Qcache queries in cache
+    options {
+        ylabel cached queries
+        units default
+        chart-type area
+        series {
+            name qc_queries_in_cache
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 32
+    title MySQL - Questions
+    options {
+        ylabel questions/s
+        units default
+        chart-type area
+        series {
+            name questions
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 33
+    title MySQL - Selects
+    options {
+        ylabel selects/s
+        units null
+        chart-type line
+        series {
+            name sel_full_join
+            color \#ffb244
+        }
+        series {
+            name sel_full_range_join
+            color \#9a72ad
+        }
+        series {
+            name sel_range
+            color \#e9644a
+        }
+        series {
+            name sel_range_check
+            color \#005467
+        }
+        series {
+            name sel_scan
+            color \#2ba743
+        }
+    }
+}
+
+chart {
+    id 34
+    title MySQL - Slow queries
+    options {
+        ylabel queries/s
+        units null
+        chart-type area
+        series {
+            name slow_queries
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 35
+    title MySQL - Sorts
+    options {
+        ylabel sorts/s
+        units null
+        chart-type area
+        series {
+            name sort_merge_passes
+            color \#ffb244
+        }
+        series {
+            name sort_range
+            color \#9a72ad
+        }
+        series {
+            name sort_rows
+            color \#e9644a
+        }
+        series {
+            name sort_scan
+            color \#005467
+        }
+    }
+}
+
+chart {
+    id 36
+    title MySQL - Table locks
+    options {
+        ylabel locks/s
+        units null
+        chart-type area
+        series {
+            name tab_locks_waited
+            color \#005467
+        }
+        series {
+            name tab_locks_immediate
+            color \#ff7a0d
+            opposite true
+        }
+    }
+}
+
+chart {
+    id 37
+    title MySQL - Threads
+    options {
+        ylabel threads
+        units null
+        chart-type line
+        series {
+            name threads_cached
+            color \#ffb244
+        }
+        series {
+            name threads_connected
+            color \#9a72ad
+        }
+        series {
+            name threads_created
+            color \#e9644a
+        }
+        series {
+            name threads_running
+            color \#005467
+        }
+    }
+}

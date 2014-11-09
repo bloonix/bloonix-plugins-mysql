@@ -1,0 +1,152 @@
+#!/usr/bin/perl
+
+=head1 NAME
+
+check-mysql-slave - Plugin to check mysql5 server-status.
+
+=head1 SYNOPSIS
+
+    check-mysql-slave [ OPTIONS ]
+
+    check-mysql-slave --help
+
+=head1 REPORTING BUGS
+
+Please report all bugs to <support(at)bloonix.de>.
+
+=head1 AUTHOR
+
+Jonny Schulz <support(at)bloonix.de>.
+
+=head1 POWERED BY
+
+     _    __ _____ _____ __  __ __ __   __
+    | |__|  |     |     |  \|  |__|\  \/  /
+    |  . |  |  |  |  |  |      |  | >    <
+    |____|__|_____|_____|__|\__|__|/__/\__\
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2014 by Jonny Schulz. All rights reserved.
+
+=cut
+
+use strict;
+use warnings;
+use Bloonix::Plugin;
+use DBI;
+
+# --------------------------------------------------
+# Plugin options
+# --------------------------------------------------
+
+my $plugin = Bloonix::Plugin->new(version => "0.4");
+
+$plugin->add_option(
+    name => "Warning threshold",
+    option => "warning",
+    value => "seconds",
+    value_type => "number",
+    default => 3000,
+    description => "This is the warning threshold for maximum number of seconds the slave is allowed to be behind the master."
+);
+
+$plugin->add_option(
+    name => "Critical threshold",
+    option => "critical",
+    value => "seconds",
+    default => 5000,
+    value_type => "number",
+    description => "This is the critical threshold for maximum number of seconds the slave is allowed to be behind the master."
+);
+
+$plugin->has_login_secret_file("example-file" => "mysql.conf");
+$plugin->has_login_username;
+$plugin->has_login_password;
+$plugin->has_host(mandatory => 1);
+$plugin->has_port(default => 3306);
+$plugin->has_use_ssl;
+$plugin->one_must_have_options("secret-file", "username");
+
+# --------------------------------------------------
+# Parse options
+# --------------------------------------------------
+
+my $opt = $plugin->parse_options;
+
+# --------------------------------------------------
+# Load slave status
+# --------------------------------------------------
+
+my $slv = ();
+my @dsn = (
+    "dbi:mysql:database=;host=$opt->{host};port=$opt->{port}",
+    $opt->{username},
+    $opt->{password}
+);
+
+if ($opt->{use_ssl}) {
+    $dsn[0] .= ";mysql_ssl=1";
+}
+
+eval {
+    local $SIG{ALRM} = sub { die "connect timeout" };
+    local $SIG{__DIE__} = sub { alarm(0) };
+    alarm(15);
+    my $dbh = DBI->connect(@dsn, { RaiseError => 1 });
+    my $sth = $dbh->prepare("show slave status");
+    $sth->execute;
+    $slv = $sth->fetchrow_hashref;
+    alarm(0);
+};
+
+if ($@) {
+    my $errstr = $@;
+    chomp($errstr);
+    $errstr =~ tr/\n/ /;
+    $plugin->exit(
+        status => "CRITICAL",
+        message => "slave error ($errstr)"
+    );
+}
+
+# --------------------------------------------------
+# Check warning and critical
+# --------------------------------------------------
+
+my $status  = "OK";
+my $message = "";
+
+if (!$slv) {
+    $message = "unable to get slave status";
+    $status  = "UNKNOWN";
+} elsif ($slv->{Slave_SQL_Running} eq "NULL") {
+    $message = "slave is not running";
+    $status  = "CRITICAL";
+} elsif (!defined $slv->{Seconds_Behind_Master} || $slv->{Seconds_Behind_Master} !~ /^\d+\z/) {
+    $message = "unable to get seconds_behind_master info";
+    $status  = "CRITICAL";
+} elsif ($slv->{Seconds_Behind_Master} >= $opt->{critical}) {
+    $message = "slave seconds_behind_master $slv->{Seconds_Behind_Master}";
+    $status  = "CRITICAL";
+} elsif ($slv->{Seconds_Behind_Master} >= $opt->{warning}) {
+    $message = "slave seconds_behind_master $slv->{Seconds_Behind_Master}";
+    $status  = "WARNING";
+} else {
+    $message = "slave is running (seconds_behind_master: $slv->{Seconds_Behind_Master})";
+    $status  = "OK";
+}
+
+my $stat;
+
+if ($slv && defined $slv->{Seconds_Behind_Master} && $slv->{Seconds_Behind_Master} =~ /^\d+\z/) {
+    $stat = $slv->{Seconds_Behind_Master};
+} else {
+    $stat = -1;
+}
+
+$plugin->exit(
+    status => $status,
+    message => $message,
+    stats => { seconds_behind_master => $stat }
+);

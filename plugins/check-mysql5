@@ -1,0 +1,308 @@
+#!/usr/bin/perl
+
+=head1 NAME
+
+check-mysql5 - Plugin to check mysql5 server-status.
+
+=head1 SYNOPSIS
+
+    check-mysql5 [ OPTIONS ]
+
+    check-mysql5 --help
+
+=head1 REPORTING BUGS
+
+Please report all bugs to <support(at)bloonix.de>.
+
+=head1 AUTHOR
+
+Jonny Schulz <support(at)bloonix.de>.
+
+=head1 POWERED BY
+
+     _    __ _____ _____ __  __ __ __   __
+    | |__|  |     |     |  \|  |__|\  \/  /
+    |  . |  |  |  |  |  |      |  | >    <
+    |____|__|_____|_____|__|\__|__|/__/\__\
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2014 by Jonny Schulz. All rights reserved.
+
+=cut
+
+use strict;
+use warnings;
+use Bloonix::Plugin;
+use DBI;
+
+# grant super,replication on *.*
+# to 'bloonix'@'localhost'
+# identified by 'password'
+
+my %mysqlstats = (
+    Aborted_clients                     => [qw/1 -/],
+    Aborted_connects                    => [qw/1 -/],
+    Bytes_received                      => [qw/1 - 1/],
+    Bytes_sent                          => [qw/1 - 1/],
+    Com_alter_table                     => [qw/1 -/],
+    Com_delete                          => [qw/1 -/],
+    Com_drop_table                      => [qw/1 -/],
+    Com_insert                          => [qw/1 -/],
+    Com_lock_tables                     => [qw/1 -/],
+    Com_select                          => [qw/1 -/],
+    Com_truncate                        => [qw/1 -/],
+    Com_unlock_tables                   => [qw/1 -/],
+    Com_update                          => [qw/1 -/],
+    Connections                         => [qw/1 -/],
+    Created_tmp_disk_tables             => [qw/1 ctmp_disk_table/],
+    Created_tmp_files                   => [qw/1 ctmp_tmp_files/],
+    Created_tmp_tables                  => [qw/1 ctmp_tmp_tables/],
+    Delayed_errors                      => [qw/1 -/],
+    Delayed_insert_threads              => [qw/0 delayed_insert_thrd/],
+    Delayed_writes                      => [qw/1 -/],
+    Innodb_buffer_pool_pages_data       => [qw/0 ibbufpool_pg_data/],
+    Innodb_buffer_pool_pages_dirty      => [qw/0 ibbufpool_pg_dirty/],
+    Innodb_buffer_pool_pages_flushed    => [qw/0 ibbufpool_pg_flush/],
+    Innodb_buffer_pool_pages_free       => [qw/0 ibbufpool_pg_free/],
+    Innodb_buffer_pool_pages_total      => [qw/0 ibbufpool_pg_total/],
+    Innodb_buffer_pool_read_ahead_rnd   => [qw/1 ibbufpool_rah_rnd/],
+    Innodb_buffer_pool_read_ahead_seq   => [qw/1 ibbufpool_rah_seq/],
+    Innodb_buffer_pool_read_requests    => [qw/1 ibbufpool_read_req/],
+    Innodb_buffer_pool_reads            => [qw/1 ibbufpool_reads/],
+    Innodb_buffer_pool_wait_free        => [qw/1 ibbufpool_wait_free/],
+    Innodb_buffer_pool_write_requests   => [qw/1 ibbufpool_write_req/],
+    Innodb_data_fsyncs                  => [qw/1 ibdata_fsyncs/],
+    Innodb_data_pending_fsyncs          => [qw/0 ibdata_pend_fsyncs/],
+    Innodb_data_pending_reads           => [qw/0 ibdata_pend_reads/],
+    Innodb_data_pending_writes          => [qw/0 ibdata_pend_writes/],
+    Innodb_data_read                    => [qw/1 ibdata_read/],
+    Innodb_data_reads                   => [qw/1 ibdata_reads/],
+    Innodb_data_writes                  => [qw/1 ibdata_writes/],
+    Innodb_data_written                 => [qw/1 ibdata_written/],
+    Innodb_pages_read                   => [qw/1 ibdata_pg_read/],
+    Innodb_pages_written                => [qw/1 ibdata_pg_written/],
+    Innodb_row_lock_current_waits       => [qw/0 ibrow_lock_cur_wait/],
+    Innodb_row_lock_time                => [qw/0 ibrow_lock_time/],
+    Innodb_row_lock_time_avg            => [qw/0 ibrow_lock_time_avg/],
+    Innodb_row_lock_waits               => [qw/1 ibrow_lock_waits/],
+    Innodb_rows_deleted                 => [qw/1 ibrows_deleted/],
+    Innodb_rows_inserted                => [qw/1 ibrows_inserted/],
+    Innodb_rows_read                    => [qw/1 ibrows_read/],
+    Innodb_rows_updated                 => [qw/1 ibrows_updated/],
+    Key_blocks_unused                   => [qw/0 -/],
+    Key_blocks_used                     => [qw/0 -/],
+    Key_read_requests                   => [qw/1 -/],
+    Key_reads                           => [qw/1 -/],
+    Key_write_requests                  => [qw/1 -/],
+    Key_writes                          => [qw/1 -/],
+    Max_used_connections                => [qw/0 max_used_conn/],
+    Open_tables                         => [qw/0 -/],
+    Opened_tables                       => [qw/1 -/],
+    Qcache_free_blocks                  => [qw/0 qc_free_blocks/],
+    Qcache_total_blocks                 => [qw/0 qc_total_blocks/],
+    Qcache_free_memory                  => [qw/0 qc_free_memory 1/],
+    Qcache_hits                         => [qw/1 qc_hits/],
+    Qcache_inserts                      => [qw/1 qc_inserts/],
+    Qcache_lowmem_prunes                => [qw/1 qc_lowmem_prunes/],
+    Qcache_not_cached                   => [qw/1 qc_not_cached/],
+    Qcache_queries_in_cache             => [qw/0 qc_queries_in_cache/],
+    Questions                           => [qw/1 -/],
+    Select_full_join                    => [qw/1 sel_full_join/],
+    Select_full_range_join              => [qw/1 sel_full_range_join/],
+    Select_range                        => [qw/1 sel_range/],
+    Select_range_check                  => [qw/1 sel_range_check/],
+    Select_scan                         => [qw/1 sel_scan/],
+    Slow_queries                        => [qw/1 -/],
+    Sort_merge_passes                   => [qw/1 -/],
+    Sort_range                          => [qw/1 -/],
+    Sort_rows                           => [qw/1 -/],
+    Sort_scan                           => [qw/1 -/],
+    Table_locks_immediate               => [qw/1 tab_locks_immediate/],
+    Table_locks_waited                  => [qw/1 tab_locks_waited/],
+    Threads_cached                      => [qw/0 -/],
+    Threads_connected                   => [qw/0 -/],
+    Threads_running                     => [qw/0 -/],
+    Threads_created                     => [qw/1 -/],
+);
+
+my %map;
+
+foreach my $key (keys %mysqlstats) {
+    if ($mysqlstats{$key}[1] eq "-") {
+        $map{ lc($key) } = $key;
+    } else {
+        $map{ $mysqlstats{$key}[1] } = $key;
+    }
+}
+
+# --------------------------------------------------
+# Plugin options
+# --------------------------------------------------
+
+my $plugin = Bloonix::Plugin->new(version => "0.8");
+my @keys;
+
+$plugin->example(
+    description => "An example to check the MySQL slow queries and the number of the latest aborted connects:",
+    arguments => [
+        username => "bloonix",
+        password => "bloonix",
+        warning => "slow_queries:5",
+        critical => "slow_queries:10",
+        warning => "aborted_connects:5",
+        critical => "aborted_connects:10"
+    ]
+);
+
+foreach my $key (keys %mysqlstats) {
+    my $name = $mysqlstats{$key}[1] eq "-"
+        ? lc($key)
+        : lc($mysqlstats{$key}[1]);
+
+    push @keys, $mysqlstats{$key}[2]
+        ? { key => $name, unit => "bytes" }
+        : { key => $name };
+}
+
+$plugin->has_threshold(keys => \@keys);
+$plugin->has_host(mandatory => 1);
+$plugin->has_port(default => 3306);
+$plugin->has_login_secret_file("example-file" => "mysql.conf");
+$plugin->has_login_username;
+$plugin->has_login_password;
+$plugin->has_use_ssl;
+$plugin->one_must_have_options("secret-file", "username");
+
+# --------------------------------------------------
+# Parse options
+# --------------------------------------------------
+
+my $opt = $plugin->parse_options;
+
+# --------------------------------------------------
+# create the data source name
+# --------------------------------------------------
+
+my @dsn = (
+    "dbi:mysql:database=;host=$opt->{host};port=$opt->{port}",
+    $opt->{username},
+    $opt->{password}
+);
+
+if ($opt->{use_ssl}) {
+    $dsn[0] .= ";mysql_ssl=1";
+}
+
+# --------------------------------------------------
+# load() function to select mysql statistics
+# --------------------------------------------------
+
+sub load {
+    my @dsn = @_;
+    my %stat = ();
+
+    eval {
+        my $dbh = DBI->connect(@dsn, { RaiseError => 1 });
+        my $sth = $dbh->prepare("show global status");
+        $sth->execute;
+
+        while (my $row = $sth->fetchrow_hashref) {
+            next unless exists $mysqlstats{ $row->{Variable_name} };
+            $stat{ $row->{Variable_name} } = $row->{Value};
+        }
+
+        foreach my $key (keys %mysqlstats) {
+            if (!exists $stat{$key}) {
+                $stat{$key} = $mysqlstats{$key} == 0 ? 0 : "0.00";
+            }
+        }
+    };
+
+    if ($@) {
+        my $err = $@;
+        chomp($err);
+        $err =~ tr/\n/ /;
+        $plugin->exit(
+            status => "CRITICAL",
+            message => $err
+        );
+    }
+
+    return \%stat;
+}
+
+# --------------------------------------------------
+# Load initial statistics
+# --------------------------------------------------
+
+my $init = $plugin->load_json;
+my $time = undef;
+
+if (defined $init) {
+    $time = delete $init->{time};
+} else {
+    $init = &load(@dsn);
+    $time = time;
+    sleep 1;
+}
+
+# --------------------------------------------------
+# Load current statistics
+# --------------------------------------------------
+
+my $stat  = &load(@dsn);
+my $ntime = time;
+my $delta = $ntime - $time;
+
+# --------------------------------------------------
+# Calculate deltas
+# --------------------------------------------------
+
+foreach my $key (keys %mysqlstats) {
+    if (!exists $stat->{$key} || !exists $init->{$key}) {
+        next;
+    }
+
+    my $value = $stat->{$key};
+
+    if ($mysqlstats{$key}[0] == 1) {
+        if ($stat->{$key} == $init->{$key} || $init->{$key} > $stat->{$key}) {
+            $stat->{$key} = sprintf("%.2f", 0);
+        } elsif ($delta > 0) {
+            $stat->{$key} = sprintf("%.2f", ($stat->{$key} - $init->{$key}) / $delta);
+        } else {
+            $stat->{$key} = sprintf("%.2f", $stat->{$key} - $init->{$key});
+        }
+    }
+
+    $init->{$key} = $value;
+
+    if ($mysqlstats{$key}[1] eq "-") {
+        $stat->{ lc($key) } = delete $stat->{$key};
+    } else {
+        $stat->{ $mysqlstats{$key}[1] } = delete $stat->{$key};
+    }
+}
+
+# --------------------------------------------------
+# Store statistics for the next run
+# --------------------------------------------------
+
+$init->{time} = $ntime;
+$plugin->safe_json($init);
+
+# --------------------------------------------------
+# Check warning and critical
+# --------------------------------------------------
+
+my $result = $plugin->check_thresholds(
+    stats => $stat,
+    upshot_keys => [qw(com_select com_insert com_update com_delete slow_queries connections)]
+);
+
+$plugin->exit(
+    status => $result->{status},
+    message => $result->{upshot},
+    stats => $stat
+);

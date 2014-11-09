@@ -1,0 +1,79 @@
+bloonix-plugins-mysql (0.12-1) unstable; urgency=low
+
+    * Updated the license information.
+
+ -- Jonny Schulz <js@bloonix.de>  Mon, 03 Nov 2014 21:17:05 +0100
+
+bloonix-plugins-mysql (0.11-1) unstable; urgency=low
+
+    * Licence added and old releases deleted.
+
+ -- Jonny Schulz <js@bloonix.de>  Tue, 26 Aug 2014 11:43:28 +0200
+
+bloonix-plugins-mysql (0.10-1) unstable; urgency=low
+
+    * Complete rewrite of all plugins.
+
+ -- Jonny Schulz <js@bloonix.de>  Sat, 23 Mar 2014 00:00:00 +0100
+
+bloonix-plugins-mysql (0.8-1) unstable; urgency=low
+
+  * Added environment variable CONFIG_PATH for more
+    security.
+
+ -- Jonny Schulz <js@bloonix.de>  Mon, 17 Sep 2012 00:19:30 +0200
+
+bloonix-plugins-mysql (0.7-1) unstable; urgency=low
+
+  * Improved the yaml file handling.
+
+ -- Jonny Schulz <js@bloonix.de>  Wed, 14 Mar 2012 20:06:09 +0100
+
+bloonix-plugins-mysql (0.6-1) unstable; urgency=low
+
+  * Updated the plugin-* files.
+
+ -- Jonny Schulz <js@bloonix.de>  Tue, 29 Nov 2011 13:03:41 +0100
+
+bloonix-plugins-mysql (0.5-1) unstable; urgency=low
+
+  * Renamed environment variable YAML_FILE_BASEDIR to
+    PLUGIN_LIBDIR.
+  * Renamed environment variables BLOONIX_MYSQL_USERNAME
+    and BLOONIX_MYSQL_PASSWORD to MYSQL_USERNAME and
+    MYSQL_PASSWORD.
+  * Kicked unused option o_stat.
+
+ -- Jonny Schulz <js@bloonix.de>  Fri, 01 Jul 2011 15:18:16 +0200
+
+bloonix-plugins-mysql (0.4-1) unstable; urgency=low
+
+  * Added check-mysql-slave to check mysql replications.
+
+ -- Jonny Schulz <js@bloonix.de>  Tue, 21 Jun 2011 11:38:27 +0200
+
+bloonix-plugins-mysql (0.3-1) unstable; urgency=low
+
+  * Renamed all plugin files from *.plugin to plugin-*.
+
+ -- Jonny Schulz <js@bloonix.de>  Mon, 27 Dec 2010 10:18:02 +0100
+
+bloonix-plugins-mysql (0.2-2) unstable; urgency=low
+
+  * Build with gpg key.
+
+ -- Jonny Schulz <js@bloonix.de>  Sun, 12 Dec 2010 03:27:07 +0100
+
+bloonix-plugins-mysql (0.2-1) unstable; urgency=low
+
+  * Kicked option --stat from all plugins, because
+    statistics will be printed by default on stdout.
+
+ -- Jonny Schulz <js@bloonix.de>  Wed, 17 Nov 2010 15:47:01 +0100
+
+bloonix-plugins-mysql (0.1-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Jonny Schulz <js@bloonix.de>  Mon, 02 Aug 2010 15:21:29 +0200
+
