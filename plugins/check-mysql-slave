@@ -66,6 +66,13 @@ $plugin->has_login_password;
 $plugin->has_host(mandatory => 1);
 $plugin->has_port(default => 3306);
 $plugin->has_use_ssl;
+
+$plugin->add_option(
+    name => "Verbose error",
+    option => "verbose-error",
+    description => "Show Last_Error in the status message if the slave is not running."
+);
+
 $plugin->one_must_have_options("secret-file", "username");
 
 # --------------------------------------------------
@@ -143,6 +150,15 @@ if ($slv && defined $slv->{Seconds_Behind_Master} && $slv->{Seconds_Behind_Maste
     $stat = $slv->{Seconds_Behind_Master};
 } else {
     $stat = -1;
+}
+
+if ($status ne "OK" && $status ne "WARNING") {
+    if (defined $slv->{Last_Errno}) {
+        $message .= " (Last_errno: " . $slv->{Last_Errno} . ")";
+    }
+    if ($opt->{verbose_error} && defined $slv->{Last_Error}) {
+        $message .= " (Last_error: " . $slv->{Last_Error} . ")";
+    }
 }
 
 $plugin->exit(
