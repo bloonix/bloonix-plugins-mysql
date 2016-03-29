@@ -1,6 +1,6 @@
 Summary: Bloonix plugins for mysql.
 Name: bloonix-plugins-mysql
-Version: 0.12
+Version: 0.14
 Release: 1%{dist}
 License: Commercial
 Group: Utilities/System
@@ -54,6 +54,11 @@ rm -rf %{buildroot}
 %doc %attr(0444, root, root) %{docdir}/LICENSE
 
 %changelog
+* Tue Mar 29 2016 Jonny Schulz <js@bloonix.de> - 0.14-1
+- Extra release because the gpg key of bloonix is updated.
+* Thu Jan 07 2016 Jonny Schulz <js@bloonix.de> - 0.13-1
+- check-mysql-slave: Improved message output if the slave
+  is not running.
 * Mon Nov 03 2014 Jonny Schulz <js@bloonix.de> - 0.12-1
 - Updated the license information.
 * Tue Aug 26 2014 Jonny Schulz <js@bloonix.de> - 0.11-1
